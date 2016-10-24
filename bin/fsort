@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+require 'fsort'
+require 'pp'
+
+criterias = Fsort::Option.parse ARGV
+
+files = Dir["**/*"].
+  select {|path| File.file? path }
+
+file_stats = Fsort.sort files, by: criterias, return_stats: true
+
+pp file_stats.map(&:stats_path)
